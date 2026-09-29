@@ -1,96 +1,242 @@
-# 🏦 Scoring de Risque de Crédit — Projet Data Analyst
+# Scoring de Risque de Crédit — Projet Data Analyst
 
-## 📌 Contexte
+## Contexte
 
-Dans le secteur bancaire, l'évaluation du risque de crédit est une étape clé du processus d'octroi de prêt. Ce projet reproduit une problématique métier réelle rencontrée par les Data Analysts en banque (risque, conformité, scoring) : **estimer la probabilité qu'un client fasse défaut sur son crédit dans les deux prochaines années**, à partir de ses caractéristiques financières et démographiques.
+Dans le secteur bancaire, l'évaluation du risque de crédit constitue une étape importante dans l'octroi de prêts.
 
-## 🎯 Objectif business
+Ce projet reproduit une problématique de scoring de risque de crédit à partir du dataset *Give Me Some Credit*. L'objectif est d'analyser les caractéristiques des clients, d'identifier les facteurs associés au défaut de paiement et de construire des modèles permettant de distinguer les clients présentant un risque de défaut.
 
-> Quels clients présentent un risque de défaut de paiement, et quels sont les facteurs qui expliquent le mieux ce risque ?
+## Objectif business
 
-L'analyse vise à fournir des recommandations concrètes pour affiner une politique d'octroi de crédit : quels critères pondérer davantage, et quel seuil de score adopter pour limiter les pertes tout en restant compétitif commercialement.
+**Quels facteurs sont les plus associés au risque de défaut de paiement et comment peuvent-ils contribuer à l'évaluation du risque client ?**
 
-## 📊 Dataset
+L'analyse combine exploration des données, SQL, visualisation et machine learning afin de produire des résultats exploitables pour l'analyse du risque de crédit.
 
-- **Source** : [Give Me Some Credit](https://www.kaggle.com/c/GiveMeSomeCredit) (Kaggle)
-- **Volume** : ~150 000 clients
-- **Variable cible** : `SeriousDlqin2yrs` (défaut de paiement grave dans les 2 ans)
-- **Variables explicatives** : revenu mensuel, taux d'endettement, nombre de retards de paiement passés, âge, nombre de crédits ouverts, nombre de personnes à charge, etc.
+## Dataset
 
-## 🛠️ Méthodologie
+- **Source :** [Give Me Some Credit — Kaggle](https://www.kaggle.com/c/GiveMeSomeCredit)
+- **Volume :** environ 150 000 observations
+- **Variable cible :** `SeriousDlqin2yrs`
+- **Problématique :** prédire la présence d'un défaut de paiement grave dans les deux prochaines années.
 
-1. **Nettoyage des données** — traitement des valeurs manquantes et aberrantes (SQL + Python)
-2. **Analyse exploratoire (SQL)** — requêtes avec CTE et window functions pour calculer le taux de défaut par segment (âge, revenu, ancienneté de crédit)
-3. **Analyse exploratoire (Python)** — visualisation des distributions et corrélations avec la variable cible
-4. **Dashboard** — tableau de bord interactif (Power BI / Tableau Public) présentant les KPIs de risque par segment
-5. **Modélisation** — régression logistique (interprétable, standard réglementaire en banque) et Random Forest en comparaison, évalués par AUC-ROC et matrice de confusion
-6. **Interprétation** — analyse de l'importance des variables (feature importance) et recommandations métier
+### Principales variables
 
-## 📈 Résultats clés
+Le dataset contient notamment des informations relatives à :
 
-*(à compléter au fur et à mesure de l'avancement)*
+- l'âge ;
+- l'endettement ;
+- le revenu mensuel ;
+- l'utilisation du crédit renouvelable ;
+- le nombre de crédits ouverts ;
+- les retards de paiement ;
+- le nombre de personnes à charge.
+
+## Méthodologie
+
+### 1. Exploration des données
+
+Analyse de la structure du dataset, des distributions des variables et de la variable cible.
+
+### 2. Nettoyage des données
+
+Traitement et préparation des données avec Python afin d'obtenir un jeu de données exploitable pour les analyses et la modélisation.
+
+### 3. Analyse SQL
+
+Exploration des données avec SQL afin d'étudier les taux de défaut selon différents profils et indicateurs financiers.
+
+### 4. Analyse exploratoire
+
+Utilisation de Python, Pandas, Matplotlib et Seaborn pour analyser les distributions, les corrélations et les relations avec la variable cible.
+
+### 5. Visualisation
+
+Création de visualisations permettant de mieux comprendre les facteurs associés au risque de défaut.
+
+Un tableau de bord Power BI complète l'analyse avec une vue synthétique des indicateurs de risque.
+
+### 6. Modélisation
+
+Deux modèles de classification ont été entraînés et comparés :
+
+- Régression logistique
+- Random Forest
+
+Les modèles sont évalués à l'aide de :
+
+- AUC-ROC
+- précision
+- rappel
+- F1-score
+- matrice de confusion
+
+### 7. Interprétation
+
+Analyse de l'importance des variables du Random Forest afin d'identifier les facteurs les plus contributifs à la prédiction du risque.
+
+## Résultats
+
+Les données ont été séparées en deux ensembles :
+
+- **119 784 observations** pour l'entraînement
+- **29 946 observations** pour le test
+
+La proportion de défaut est de **6,6 %** dans les deux ensembles.
+
+### Performance des modèles
 
 | Métrique | Régression logistique | Random Forest |
-|---|---|---|
-| AUC-ROC | — | — |
-| Précision | — | — |
-| Rappel | — | — |
+|---|---:|---:|
+| AUC-ROC | 0.8481 | 0.8541 |
+| Accuracy | 0.80 | 0.80 |
+| Recall — Défaut | 0.73 | 0.73 |
+| F1-score — Défaut | 0.33 | 0.33 |
 
-**Principaux enseignements :**
-- —
-- —
-- —
+Les deux modèles présentent des performances proches sur le jeu de test, avec une AUC-ROC d'environ 0,85.
 
-## 📁 Structure du repo
+## Variables les plus importantes
 
+L'analyse du Random Forest met principalement en évidence les variables suivantes :
+
+| Variable | Importance |
+|---|---:|
+| `RevolvingUtilizationOfUnsecuredLines` | 37,3 % |
+| `NumberOfTimes90DaysLate` | 18,4 % |
+| `NumberOfTime30-59DaysPastDueNotWorse` | 17,7 % |
+| `NumberOfTime60-89DaysPastDueNotWorse` | 10,2 % |
+| `age` | 5,2 % |
+| `DebtRatio` | 3,4 % |
+
+Les indicateurs liés à l'utilisation du crédit et aux retards de paiement représentent les variables les plus importantes dans le modèle Random Forest.
+
+## Visualisations produites
+
+Le projet génère notamment :
+
+- une comparaison des courbes ROC ;
+- une matrice de confusion ;
+- un graphique d'importance des variables ;
+- des visualisations exploratoires des données.
+
+Les graphiques sont disponibles dans :
+
+```text
+reports/
+└── figures/
+    ├── 06_courbes_roc.png
+    ├── 07_matrice_confusion.png
+    └── 08_importance_variables.png
 ```
+
+## Structure du projet
+
+```text
 credit-risk-scoring/
+│
 ├── data/
-│   ├── raw/                # Données brutes (non versionnées, voir .gitignore)
-│   └── processed/          # Données nettoyées
-├── sql/
-│   └── queries.sql         # Requêtes d'exploration (CTE, window functions)
+│   ├── raw/
+│   └── processed/
+│
+├── dashboards/
+│   └── Analyse du risque de crédit.pbix
+│
 ├── notebooks/
-│   ├── 01_exploration.ipynb
-│   ├── 02_cleaning.ipynb
-│   └── 03_modeling.ipynb
-├── dashboard/
-│   └── credit_risk_dashboard.pbix   # ou lien Tableau Public
+│   ├── 01_exploration.py
+│   ├── 02_cleaning.py
+│   ├── 03_load_mysql.py
+│   ├── 04_sql_exploration.py
+│   └── 05_modeling.py
+│
 ├── reports/
-│   └── recommandations.md
-├── requirements.txt
-└── README.md
+│   ├── figures/
+│   │   ├── 06_courbes_roc.png
+│   │   ├── 07_matrice_confusion.png
+│   │   └── 08_importance_variables.png
+│   └── recommendations.md
+│
+├── sql/
+│   └── queries.sql
+│
+├── .gitignore
+├── README.md
+└── requirements.txt
 ```
 
-## ⚙️ Installation
+## Technologies utilisées
+
+- **Python** : Pandas, NumPy, Matplotlib, Seaborn
+- **Machine Learning** : Scikit-learn
+- **SQL / MySQL**
+- **Power BI**
+- **Git / GitHub**
+
+## Installation
+
+Cloner le dépôt :
 
 ```bash
 git clone https://github.com/<ton-pseudo>/credit-risk-scoring.git
 cd credit-risk-scoring
+```
+
+Créer et activer un environnement virtuel :
+
+```bash
+python -m venv .venv
+```
+
+Sous Windows :
+
+```bash
+.venv\Scripts\activate
+```
+
+Installer les dépendances :
+
+```bash
 pip install -r requirements.txt
 ```
 
-## 🚀 Utilisation
+## Exécution
+
+Les scripts Python peuvent être exécutés depuis le dossier `notebooks` :
 
 ```bash
-# Lancer l'exploration SQL
-sqlite3 data/processed/credit.db < sql/queries.sql
-
-# Lancer les notebooks dans l'ordre
-jupyter notebook notebooks/
+cd notebooks
+python 01_exploration.py
+python 02_cleaning.py
+python 03_load_mysql.py
+python 04_sql_exploration.py
+python 05_modeling.py
 ```
 
-## 🧰 Compétences démontrées
+Le script de modélisation génère automatiquement les graphiques dans :
 
-- **SQL** : jointures, CTE, window functions, agrégations
-- **Python** : pandas, numpy, matplotlib/seaborn, scikit-learn
-- **Data visualisation** : Power BI / Tableau
-- **Machine Learning** : classification binaire, évaluation de modèles (AUC-ROC), interprétabilité
-- **Communication** : traduction de résultats techniques en recommandations business
+```text
+reports/figures/
+```
 
-## 👤 Auteur
+## Principaux enseignements
 
-*(ton nom, LinkedIn, portfolio)*
+L'analyse met en évidence l'importance des indicateurs liés à l'historique de paiement et à l'utilisation du crédit dans la prédiction du défaut.
 
----
-*Projet réalisé dans le cadre d'une préparation active à un poste de Data Analyst, avec une orientation secteur bancaire (risque de crédit, scoring).*
+Les variables liées aux retards de paiement figurent parmi les facteurs les plus importants du modèle, tandis que `RevolvingUtilizationOfUnsecuredLines` représente la variable ayant la plus forte importance dans le Random Forest.
+
+Ces résultats permettent d'alimenter une réflexion métier autour de l'identification et du suivi des profils présentant un risque de défaut.
+
+## Compétences démontrées
+
+- **Analyse de données** : nettoyage, exploration et interprétation
+- **SQL** : requêtes, agrégations, CTE et analyse de données
+- **Python** : Pandas, NumPy, Matplotlib, Seaborn
+- **Machine Learning** : classification binaire, Régression logistique, Random Forest
+- **Évaluation de modèles** : AUC-ROC, précision, rappel, F1-score, matrice de confusion
+- **Data visualisation** : Power BI
+- **Analyse métier** : interprétation des résultats et formulation de recommandations
+- **Gestion de projet** : Git / GitHub
+
+## Auteur
+
+**TIE RACHIDA HEBIE**
+
+Étudiante en BUT Informatique
