@@ -6,3 +6,6 @@ seaborn
 jupyter
 jupyterlab
 duckdb
+sqlalchemy
+pymysql
+cryptography
