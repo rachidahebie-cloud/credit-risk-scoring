@@ -120,12 +120,13 @@ Le projet génère notamment :
 
 Les graphiques sont disponibles dans :
 
-```text
+
 reports/
 └── figures/
     ├── 06_courbes_roc.png
     ├── 07_matrice_confusion.png
     └── 08_importance_variables.png
+
 ## Structure du projet
 
 credit-risk-scoring/
