@@ -64,11 +64,11 @@ Deux modèles de classification ont été entraînés et comparés :
 
 Les modèles sont évalués à l'aide de :
 
-- AUC-ROC ;
-- précision ;
-- rappel ;
-- F1-score ;
-- matrice de confusion.
+- AUC-ROC
+- précision
+- rappel
+- F1-score
+- matrice de confusion
 
 ### 7. Interprétation
 
@@ -78,8 +78,8 @@ Analyse de l'importance des variables du Random Forest afin d'identifier les fac
 
 Les données ont été séparées en deux ensembles :
 
-- **119 784 observations** pour l'entraînement ;
-- **29 946 observations** pour le test.
+- **119 784 observations** pour l'entraînement
+- **29 946 observations** pour le test
 
 La proportion de défaut est de **6,6 %** dans les deux ensembles.
 
@@ -120,15 +120,17 @@ Le projet génère notamment :
 
 Les graphiques sont disponibles dans :
 
-
+```text
 reports/
 └── figures/
     ├── 06_courbes_roc.png
     ├── 07_matrice_confusion.png
     └── 08_importance_variables.png
+```
 
 ## Structure du projet
 
+```text
 credit-risk-scoring/
 │
 ├── data/
@@ -143,8 +145,7 @@ credit-risk-scoring/
 │   ├── 02_cleaning.py
 │   ├── 03_load_mysql.py
 │   ├── 04_sql_exploration.py
-│   ├── 05_visualisation.py
-│   └── 06_modeling.py
+│   └── 05_modeling.py
 │
 ├── reports/
 │   ├── figures/
@@ -159,66 +160,83 @@ credit-risk-scoring/
 ├── .gitignore
 ├── README.md
 └── requirements.txt
+```
 
-Technologies utilisées
-Python : Pandas, NumPy, Matplotlib, Seaborn
-Machine Learning : Scikit-learn
-SQL / MySQL
-Power BI
-Git / GitHub
+## Technologies utilisées
 
-Installation
+- **Python** : Pandas, NumPy, Matplotlib, Seaborn
+- **Machine Learning** : Scikit-learn
+- **SQL / MySQL**
+- **Power BI**
+- **Git / GitHub**
+
+## Installation
 
 Cloner le dépôt :
 
+```bash
 git clone https://github.com/<ton-pseudo>/credit-risk-scoring.git
 cd credit-risk-scoring
+```
 
 Créer et activer un environnement virtuel :
 
+```bash
 python -m venv .venv
+```
 
 Sous Windows :
 
+```bash
 .venv\Scripts\activate
+```
 
 Installer les dépendances :
 
+```bash
 pip install -r requirements.txt
-Exécution
+```
 
-Les scripts Python peuvent être exécutés depuis le dossier notebooks :
+## Exécution
 
+Les scripts Python peuvent être exécutés depuis le dossier `notebooks` :
+
+```bash
 cd notebooks
 python 01_exploration.py
 python 02_cleaning.py
 python 03_load_mysql.py
 python 04_sql_exploration.py
-python 05_visualisation.py
-python 06_modeling.py
+python 05_modeling.py
+```
 
 Le script de modélisation génère automatiquement les graphiques dans :
 
+```text
 reports/figures/
-Principaux enseignements
+```
+
+## Principaux enseignements
 
 L'analyse met en évidence l'importance des indicateurs liés à l'historique de paiement et à l'utilisation du crédit dans la prédiction du défaut.
 
-Les variables liées aux retards de paiement figurent parmi les facteurs les plus importants du modèle, tandis que RevolvingUtilizationOfUnsecuredLines représente la variable ayant la plus forte importance dans le Random Forest.
+Les variables liées aux retards de paiement figurent parmi les facteurs les plus importants du modèle, tandis que `RevolvingUtilizationOfUnsecuredLines` représente la variable ayant la plus forte importance dans le Random Forest.
 
 Ces résultats permettent d'alimenter une réflexion métier autour de l'identification et du suivi des profils présentant un risque de défaut.
 
-Compétences démontrées
-Analyse de données : nettoyage, exploration et interprétation
-SQL : requêtes, agrégations, CTE et analyse de données
-Python : Pandas, NumPy, Matplotlib, Seaborn
-Machine Learning : classification binaire, Régression logistique, Random Forest
-Évaluation de modèles : AUC-ROC, précision, rappel, F1-score, matrice de confusion
-Data visualisation : Power BI
-Analyse métier : interprétation des résultats et formulation de recommandations
-Gestion de projet : Git / GitHub
-Auteur
+## Compétences démontrées
 
-TIE RACHIDA HEBIE
+- **Analyse de données** : nettoyage, exploration et interprétation
+- **SQL** : requêtes, agrégations, CTE et analyse de données
+- **Python** : Pandas, NumPy, Matplotlib, Seaborn
+- **Machine Learning** : classification binaire, Régression logistique, Random Forest
+- **Évaluation de modèles** : AUC-ROC, précision, rappel, F1-score, matrice de confusion
+- **Data visualisation** : Power BI
+- **Analyse métier** : interprétation des résultats et formulation de recommandations
+- **Gestion de projet** : Git / GitHub
+
+## Auteur
+
+**TIE RACHIDA HEBIE**
 
 Étudiante en BUT Informatique
